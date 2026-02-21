@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fa">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>English Starter Test</title>
+<title>CORE English Exam</title>
 <link rel="icon" type="image/png" href="https://uploadkon.ir/uploads/855814_261000016643-removebg-preview.png">
 
 <style>
@@ -17,17 +17,15 @@
   --glass:rgba(255,255,255,0.08);
   --border:rgba(255,255,255,0.15);
 }
-
 .light{
   --bg:#f2f2f7;
   --card:#ffffff;
   --text:#222;
-  --accent:#0077ff;
-  --accent2:#00bbff;
+  --accent:#91c300;
+  --accent2:#91c300;
   --glass:rgba(255,255,255,0.5);
   --border:rgba(0,0,0,0.1);
 }
-
 body{
   margin:0;
   font-family:Segoe UI, sans-serif;
@@ -37,9 +35,8 @@ body{
   justify-content:center;
   align-items:center;
   height:100vh;
-  transition:.4s;
+  transition:.3s;
 }
-
 .container{
   width:390px;
   background:var(--card);
@@ -49,8 +46,6 @@ body{
   position:relative;
   overflow:hidden;
 }
-
-/* LOGO */
 .logo{
   width:120px;
   display:block;
@@ -63,8 +58,6 @@ body{
   50%{ transform:translateY(-8px); }
   100%{ transform:translateY(0); }
 }
-
-/* THEME BUTTON */
 .theme-btn{
   position:absolute;
   top:12px;
@@ -73,8 +66,6 @@ body{
   cursor:pointer;
   user-select:none;
 }
-
-/* PROGRESS BAR */
 .progress-wrap{
   width:100%;
   height:10px;
@@ -87,63 +78,41 @@ body{
   height:100%;
   width:0%;
   background:linear-gradient(90deg, var(--accent), var(--accent2));
-  transition:.4s;
+  transition:.3s;
 }
-
-/* TEXTS */
 h2{
   text-align:center;
   margin-bottom:8px;
 }
-.word{
+.instruction{text-align:center;opacity:.8;}
+.question{
   text-align:center;
-  font-size:26px;
-  letter-spacing:3px;
-  margin:10px 0;
+  font-size:24px;
+  margin:10px 0 4px;
   color:var(--accent);
 }
-.instruction{
+.translation{
   text-align:center;
-  opacity:.8;
+  font-size:15px;
+  opacity:.9;
+  margin-bottom:10px;
 }
-
-/* LETTERS */
-.answer-box{
-  min-height:50px;
-  border:2px dashed var(--border);
-  border-radius:12px;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  gap:8px;
-  margin:16px 0;
-  padding:10px;
-}
-.letters{
+.options{
   display:flex;
   flex-wrap:wrap;
   justify-content:center;
   gap:10px;
+  margin-top:10px;
 }
-.letter{
+.option{
   background:#2d334a;
-  color:#fff;
-  padding:12px 16px;
+  padding:10px 14px;
   border-radius:12px;
   cursor:pointer;
-  user-select:none;
   transition:.2s;
-  font-size:18px;
+  font-size:16px;
 }
-.light .letter{
-  background:#d0d4e4;
-  color:#000;
-}
-.letter:hover{
-  transform:scale(1.15) rotate(3deg);
-}
-
-/* BUTTON */
+.option:hover{transform:scale(1.1);}
 button{
   width:100%;
   margin-top:18px;
@@ -157,72 +126,62 @@ button{
   cursor:pointer;
   transition:.2s;
 }
-button:hover{
-  transform:scale(1.03);
-}
+button:hover{transform:scale(1.03);}
 
-/* POPUP */
+/* پاپ‌آپ نتیجه */
 .popup{
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,.65);
+  background:rgba(0,0,0,.4);
   display:none;
   justify-content:center;
   align-items:center;
-  animation:fade .3s;
-}
-@keyframes fade{
-  from{opacity:0;}
-  to{opacity:1;}
 }
 .popup-content{
-  background:var(--glass);
-  backdrop-filter:blur(12px);
-  padding:22px;
-  border-radius:16px;
-  width:330px;
+  background:var(--card);
+  padding:18px;
+  border-radius:14px;
+  width:280px;
   text-align:center;
   border:1px solid var(--border);
-  animation:pop .35s ease;
 }
-@keyframes pop{
-  0%{ transform:scale(.6); opacity:0; }
-  100%{ transform:scale(1); opacity:1; }
-}
-
 .correct{color:#00ff88;}
 .wrong{color:#ff7a00;}
 
-/* MISTAKES */
-.mistakes-title{
-  font-size:18px;
-  font-weight:bold;
-  margin-top:20px;
-  margin-bottom:10px;
-  color:var(--accent);
-  text-align:center;
+/* فلش‌کارت شیشه‌ای */
+.flashcard{
+  position:fixed;
+  inset:0;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:rgba(0,0,0,.55);
+  opacity:0;
+  pointer-events:none;
+  transition:.4s;
 }
-.mistake-card{
+.flashcard.show{
+  opacity:1;
+  pointer-events:auto;
+}
+.flashcard-content{
   background:var(--glass);
   border:1px solid var(--border);
-  padding:12px;
-  border-radius:12px;
-  margin-bottom:12px;
-  backdrop-filter:blur(10px);
-  font-size:14px;
+  padding:20px;
+  border-radius:16px;
+  width:300px;
+  text-align:center;
+  backdrop-filter:blur(12px);
+  animation:fadeIn .4s ease;
 }
-.mistake-card b{
-  color:var(--accent2);
-  font-size:16px;
+@keyframes fadeIn{
+  from{ transform:scale(.8); opacity:0; }
+  to{ transform:scale(1); opacity:1; }
 }
-.mistake-label{
-  font-weight:bold;
-  color:var(--accent);
-}
-.mistake-user{
-  color:#ff7a00;
-  font-weight:bold;
-}
+.flash-en{font-size:20px;margin-bottom:6px;color:var(--accent);}
+.flash-fa{margin-bottom:4px;}
+.flash-pr{opacity:.9;font-size:14px;}
+.flash-score{margin-top:6px;font-weight:bold;}
 </style>
 </head>
 
@@ -238,173 +197,344 @@ button:hover{
     <div class="progress" id="progressBar"></div>
   </div>
 
-  <h2 id="progress">Question 1 / 8</h2>
+  <h2 id="title">سؤال ۱</h2>
+  <div class="instruction" id="instruction"></div>
 
-  <div class="instruction">Write this word:</div>
-  <div class="word" id="targetWord"></div>
+  <div class="question" id="questionText"></div>
+  <div class="translation" id="translation"></div>
 
-  <div class="answer-box" id="answerBox"></div>
-  <div class="letters" id="lettersBox"></div>
+  <div class="options" id="optionsBox"></div>
 
-  <button onclick="check()">Check</button>
+  <button id="checkBtn">بررسی</button>
 </div>
 
 <div class="popup" id="popup">
   <div class="popup-content">
     <h3 id="result"></h3>
     <p id="info"></p>
-    <p id="scoreInfo" style="font-weight:bold;"></p>
-    <button onclick="next()">I got it</button>
+    <button id="nextBtn">بعدی</button>
+  </div>
+</div>
+
+<div class="flashcard" id="flashcard">
+  <div class="flashcard-content">
+    <div class="flash-en" id="flashEn"></div>
+    <div class="flash-fa" id="flashFa"></div>
+    <div class="flash-pr" id="flashPr"></div>
+    <div class="flash-score" id="flashScore"></div>
+    <button style="margin-top:12px;" id="flashClose">باشه</button>
   </div>
 </div>
 
 <script>
-const data=[
- {w:"family", fa:"خانواده", pr:"فامیلی"},
- {w:"mother", fa:"مادر", pr:"مادِر"},
- {w:"father", fa:"پدر", pr:"فادِر"},
- {w:"mom", fa:"مامان", pr:"مام"},
- {w:"dad", fa:"بابا", pr:"دد"},
- {w:"parent", fa:"والد", pr:"پِرِنت"},
- {w:"brother", fa:"برادر", pr:"برادِر"},
- {w:"sister", fa:"خواهر", pr:"سیستِر"},
- {w:"son", fa:"پسر", pr:"سان"},
- {w:"daughter", fa:"دختر", pr:"داگتر"},
- {w:"child", fa:"کودک", pr:"چایلد"},
- {w:"children", fa:"کودکان", pr:"چیلدرن"},
- {w:"husband", fa:"شوهر", pr:"هازبند"},
- {w:"wife", fa:"همسر", pr:"وایف"},
- {w:"grandmother", fa:"مادربزرگ", pr:"گرندمادِر"},
- {w:"grandfather", fa:"پدربزرگ", pr:"گرندفادِر"},
- {w:"uncle", fa:"عمو / دایی", pr:"آنکِل"},
- {w:"aunt", fa:"عمه / خاله", pr:"آنت"},
- {w:"cousin", fa:"پسرعمو / دخترعمو", pr:"کازن"},
- {w:"relative", fa:"خویشاوند", pr:"رِلِتیو"},
- {w:"home", fa:"خانه", pr:"هوم"},
- {w:"house", fa:"خانه", pr:"هاوس"},
- {w:"marriage", fa:"ازدواج", pr:"مَرِج"},
- {w:"relationship", fa:"رابطه", pr:"رِلِیشِن‌شیپ"}
+// ---------- آرایه‌ها ----------
+
+// تشخیصی
+const diagnostic = [
+  {en:"___ am ready.",fa:"من آماده‌ام.",pr:"آی اَم رِدی",opts:["I","he","they"],answer:"I"},
+  {en:"She _ happy.",fa:"او خوشحال است.",pr:"شی ایز هَپی",opts:["is","go","have"],answer:"is"},
+  {en:"We _ together.",fa:"ما با هم کار می‌کنیم.",pr:"وی وُرک",opts:["work","go","take"],answer:"work"},
+  {en:"They _ here.",fa:"آنها اینجا هستند.",pr:"دِی آر هیر",opts:["are","do","make"],answer:"are"},
+  {en:"I _ a car.",fa:"من یک ماشین دارم.",pr:"آی هَو",opts:["have","go","take"],answer:"have"},
+  {en:"He _ to work.",fa:"او به کار می‌رود.",pr:"هی گوز",opts:["go","come","give"],answer:"go"},
+  {en:"She _ me.",fa:"او مرا دوست دارد.",pr:"شی لایک",opts:["like","know","need"],answer:"like"},
+  {en:"We ___ English.",fa:"ما انگلیسی یاد می‌گیریم.",pr:"وی نو",opts:["know","think","give"],answer:"know"}
 ];
 
-let i=0, score=0;
-let selected=[];
-let mistakes=[];
 
-function shuffle(a){ return a.sort(()=>Math.random()-0.5); }
+// جمله‌سازی
+const combine = [
+  {words:["ready","I","am"],fa:"من آماده‌ام.",pr:"آی اَم رِدی",answer:"I am ready"},
+  {words:["work","we"],fa:"ما کار می‌کنیم.",pr:"وی وُرک",answer:"we work"},
+  {words:["live","I","here"],fa:"من اینجا زندگی می‌کنم.",pr:"آی لیو هیر",answer:"I live here"},
+  {words:["they","happy","are"],fa:"آنها خوشحال هستند.",pr:"دِی آر هَپی",answer:"they are happy"},
+  {words:["I","you","like"],fa:"من تو را دوست دارم.",pr:"آی یو لایک",answer:"I like you"},
+  {words:["we","go","now"],fa:"ما الان می‌رویم.",pr:"وی گو ناو",answer:"we go now"},
+  {words:["she","work"],fa:"او کار می‌کند.",pr:"شی وُرک",answer:"she works"},
+  {words:["he","come","here"],fa:"او به اینجا می‌آید.",pr:"هی کام هیر",answer:"he comes here"}
+];
 
-function load(){
-  selected=[];
-  answerBox.innerHTML="";
-  lettersBox.innerHTML="";
-  progress.innerText=`Question ${i+1} / ${data.length}`;
-  targetWord.innerText=data[i].w;
 
-  progressBar.style.width=((i)/data.length)*100+"%";
+// حدس‌زدن نوع ۱
+const guessMeaning = [
+  {q:"کدام کلمه معنی «من» است؟",opts:["I","you","they"],fa:"من",pr:"آی",answer:"I"},
+  {q:"کدام کلمه معنی «ما» است؟",opts:["we","he","she"],fa:"ما",pr:"وی",answer:"we"},
+  {q:"کدام کلمه معنی «آنها» است؟",opts:["they","it","you"],fa:"آنها",pr:"دِی",answer:"they"},
+  {q:"کدام کلمه معنی «داشتن» است؟",opts:["have","go","make"],fa:"داشتن",pr:"هَو",answer:"have"},
+  {q:"کدام کلمه معنی «رفتن» است؟",opts:["go","come","take"],fa:"رفتن",pr:"گو",answer:"go"},
+  {q:"کدام کلمه معنی «دادن» است؟",opts:["give","get","want"],fa:"دادن",pr:"گیو",answer:"give"},
+  {q:"کدام کلمه معنی «فکر کردن» است؟",opts:["think","know","live"],fa:"فکر کردن",pr:"تینک",answer:"think"},
+  {q:"کدام کلمه معنی «زندگی کردن» است؟",opts:["live","work","make"],fa:"زندگی کردن",pr:"لیو",answer:"live"},
+  {q:"کدام کلمه معنی «بله» است؟",opts:["yes","no","not"],fa:"بله",pr:"یِس",answer:"yes"}
+];
 
-  shuffle(data[i].w.split("")).forEach(l=>{
-    let d=document.createElement("div");
-    d.className="letter";
-    d.innerText=l;
-    d.onclick=()=>pick(d,l);
-    lettersBox.appendChild(d);
-  });
-}
 
-function pick(el,l){
-  el.style.display="none";
-  selected.push(l);
+// حدس‌زدن نوع ۲
+const guessWord = [
+  {q:"معنی «you» چیست؟",opts:["تو","ما","او"],fa:"تو",pr:"یو",answer:"تو"},
+  {q:"معنی «he» چیست؟",opts:["او","آنها","من"],fa:"او",pr:"هی",answer:"او"},
+  {q:"معنی «she» چیست؟",opts:["او","تو","ما"],fa:"او",pr:"شی",answer:"او"},
+  {q:"معنی «it» چیست؟",opts:["آن","او","ما"],fa:"آن",pr:"ایت",answer:"آن"},
+  {q:"معنی «do» چیست؟",opts:["کردن","رفتن","داشتن"],fa:"کردن",pr:"دو",answer:"کردن"},
+  {q:"معنی «make» چیست؟",opts:["ساختن","دادن","گرفتن"],fa:"ساختن",pr:"مِیک",answer:"ساختن"},
+  {q:"معنی «get» چیست؟",opts:["گرفتن","دادن","خواستن"],fa:"گرفتن",pr:"گِت",answer:"گرفتن"},
+  {q:"معنی «want» چیست؟",opts:["خواستن","نیاز داشتن","دوست داشتن"],fa:"خواستن",pr:"وانت",answer:"خواستن"},
+  {q:"معنی «need» چیست؟",opts:["نیاز داشتن","دانستن","فکر کردن"],fa:"نیاز داشتن",pr:"نید",answer:"نیاز داشتن"}
+];
 
-  let d=document.createElement("div");
-  d.className="letter";
-  d.innerText=l;
-  d.onclick=()=>{
-    answerBox.removeChild(d);
-    selected.pop();
-    el.style.display="block";
-  };
-  answerBox.appendChild(d);
-}
+// ترتیب نوع سؤال‌ها
+const sequence = ["diagnostic","combine","guessMeaning","guessWord"];
 
-function check(){
-  let user=selected.join("");
-  popup.style.display="flex";
+let idxDiag = 0;
+let idxComb = 0;
+let idxGM = 0;
+let idxGW = 0;
+let step = 0;
+let score = 0;
 
-  if(user===data[i].w){
-    score+=2;
-    result.innerHTML="✅ Correct";
-    result.className="correct";
-  }else{
-    score-=1;
-    result.innerHTML="❌ Wrong";
-    result.className="wrong";
+let currentType = null;
+let currentData = null;
+let selectedOption = null;
+let builtSentence = "";
 
-    mistakes.push({
-      correct:data[i].w,
-      user:user || "(خالی)",
-      fa:data[i].fa,
-      pr:data[i].pr
-    });
-  }
+const titleEl = document.getElementById("title");
+const instructionEl = document.getElementById("instruction");
+const questionEl = document.getElementById("questionText");
+const translationEl = document.getElementById("translation");
+const optionsBox = document.getElementById("optionsBox");
+const progressBar = document.getElementById("progressBar");
 
-  info.innerHTML=
-    `<b>${data[i].w}</b><br>
-     معنی: ${data[i].fa}<br>
-     تلفظ: ${data[i].pr}`;
+const popup = document.getElementById("popup");
+const resultEl = document.getElementById("result");
+const infoEl = document.getElementById("info");
+const nextBtn = document.getElementById("nextBtn");
 
-  scoreInfo.innerHTML=`امتیاز فعلی: ${score}`;
-}
+const flashcard = document.getElementById("flashcard");
+const flashEn = document.getElementById("flashEn");
+const flashFa = document.getElementById("flashFa");
+const flashPr = document.getElementById("flashPr");
+const flashScore = document.getElementById("flashScore");
+const flashClose = document.getElementById("flashClose");
 
-function next(){
-  popup.style.display="none";
-  i++;
-  if(i<data.length){
-    load();
-  }else{
-    showFinal();
-  }
-}
+document.getElementById("checkBtn").onclick = checkAnswer;
+nextBtn.onclick = nextQuestion;
+flashClose.onclick = ()=> flashcard.classList.remove("show");
 
-function showFinal(){
-  let html = `
-    <h2>Test Completed!</h2>
-    <p class="correct">امتیاز نهایی: ${score}</p>
-  `;
-
-  if(mistakes.length > 0){
-    html += `<p class="wrong">تعداد خطاها: ${mistakes.length}</p>`;
-    html += `<div class="mistakes-title">لیست خطاهای شما</div>`;
-
-    mistakes.forEach((m, idx) => {
-      html += `
-        <div class="mistake-card">
-          <b>${idx+1}) ${m.correct}</b>
-          <div><span class="mistake-label">جواب شما:</span> <span class="mistake-user">${m.user}</span></div>
-          <div><span class="mistake-label">معنی:</span> ${m.fa}</div>
-          <div><span class="mistake-label">تلفظ:</span> ${m.pr}</div>
-        </div>
-      `;
-    });
-
-  } else {
-    html += `<p class="correct">عالی! هیچ خطایی نداشتی 🎉</p>`;
-  }
-
-  document.querySelector(".container").innerHTML = html;
-}
-
-/* THEME SWITCH */
-let isLight=false;
-themeBtn.onclick=toggleTheme;
-logo.onclick=toggleTheme;
+// تم
+let isLight = false;
+const themeBtn = document.getElementById("themeBtn");
+const logo = document.getElementById("logo");
+themeBtn.onclick = toggleTheme;
+logo.onclick = toggleTheme;
 
 function toggleTheme(){
-  isLight=!isLight;
-  document.body.className=isLight?"light":"";
-  themeBtn.innerText=isLight?"☀":"🌙";
+  isLight = !isLight;
+  document.body.className = isLight ? "light" : "";
+  themeBtn.innerText = isLight ? "☀" : "🌙";
 }
 
-/* START */
-load();
+// ---------- تعداد کل سؤالات ----------
+function totalQuestions(){
+  return diagnostic.length + combine.length + guessMeaning.length + guessWord.length;
+}
+
+// ---------- انتخاب سؤال ----------
+function getNextQuestion(){
+  if(step >= totalQuestions()){
+    finish();
+    return;
+  }
+
+  const typeKey = sequence[step % sequence.length];
+  currentType = typeKey;
+
+  if(typeKey === "diagnostic"){
+    currentData = diagnostic[idxDiag];
+    idxDiag++;
+  }else if(typeKey === "combine"){
+    currentData = combine[idxComb];
+    idxComb++;
+  }else if(typeKey === "guessMeaning"){
+    currentData = guessMeaning[idxGM];
+    idxGM++;
+  }else if(typeKey === "guessWord"){
+    currentData = guessWord[idxGW];
+    idxGW++;
+  }
+
+  renderQuestion();
+}
+
+// ---------- رندر سؤال ----------
+function renderQuestion(){
+  titleEl.innerText = `سؤال ${step+1}`;
+  optionsBox.innerHTML = "";
+  selectedOption = null;
+  builtSentence = "";
+
+  if(currentType === "diagnostic"){
+    instructionEl.innerText = "جای خالی را پر کنید:";
+    questionEl.innerText = currentData.en;
+    translationEl.innerText = currentData.fa;
+
+    currentData.opts.forEach(o=>{
+      const btn = document.createElement("div");
+      btn.className = "option";
+      btn.innerText = `[${o}]`;
+      btn.onclick = ()=>{
+        selectedOption = o;
+        questionEl.innerText = currentData.en.replace("___", o);
+      };
+      optionsBox.appendChild(btn);
+    });
+
+  }else if(currentType === "combine"){
+    instructionEl.innerText = "کلمات را طوری بچین که جمله معنی‌دار شود:";
+    questionEl.innerText = "__________";
+    translationEl.innerText = currentData.fa;
+
+    currentData.words.forEach(w=>{
+      const btn = document.createElement("div");
+      btn.className = "option";
+      btn.innerText = `[${w}]`;
+      btn.onclick = ()=>{
+        if(!builtSentence) builtSentence = w;
+        else builtSentence += " " + w;
+        questionEl.innerText = builtSentence;
+      };
+      optionsBox.appendChild(btn);
+    });
+
+  }else if(currentType === "guessMeaning"){
+    instructionEl.innerText = "حدس بزن:";
+    questionEl.innerText = currentData.q;
+    translationEl.innerText = "";
+
+    currentData.opts.forEach(o=>{
+      const btn = document.createElement("div");
+      btn.className = "option";
+      btn.innerText = `[${o}]`;
+      btn.onclick = ()=>{ selectedOption = o; };
+      optionsBox.appendChild(btn);
+    });
+
+  }else if(currentType === "guessWord"){
+    instructionEl.innerText = "حدس بزن:";
+    questionEl.innerText = currentData.q;
+    translationEl.innerText = "";
+
+    currentData.opts.forEach(o=>{
+      const btn = document.createElement("div");
+      btn.className = "option";
+      btn.innerText = `[${o}]`;
+      btn.onclick = ()=>{ selectedOption = o; };
+      optionsBox.appendChild(btn);
+    });
+  }
+
+  updateProgress();
+}
+
+// ---------- بررسی پاسخ ----------
+function checkAnswer(){
+  if(!currentData) return;
+
+  let userAnswer = "";
+
+  if(currentType === "diagnostic"){
+    userAnswer = selectedOption || "";
+  }else if(currentType === "combine"){
+    userAnswer = (builtSentence || "").trim();
+  }else{
+    userAnswer = selectedOption || "";
+  }
+
+  if(!userAnswer){
+    alert("اول جواب بده 🙂");
+    return;
+  }
+
+  let correct = userAnswer.toLowerCase() === currentData.answer.toLowerCase();
+
+  if(correct){
+    score++;
+    resultEl.innerText = "✅ درست";
+    resultEl.className = "correct";
+  }else{
+    score--;
+    resultEl.innerText = "❌ غلط";
+    resultEl.className = "wrong";
+  }
+
+  infoEl.innerText = `پاسخ صحیح: ${currentData.answer}`;
+
+  popup.style.display = "flex";
+
+  // بعد از بستن پاپ‌آپ، فلش‌کارت را نشان می‌دهیم
+}
+
+// ---------- فلش‌کارت ----------
+function showFlashcard(){
+  let fullSentence = "";
+  let fa = "";
+  let pr = "";
+
+  if(currentType === "diagnostic"){
+    fullSentence = currentData.en.replace("___", currentData.answer);
+    fa = currentData.fa;
+    pr = currentData.pr;
+  }else if(currentType === "combine"){
+    fullSentence = currentData.answer;
+    fa = currentData.fa;
+    pr = currentData.pr;
+  }else if(currentType === "guessMeaning"){
+    fullSentence = currentData.answer;
+    fa = currentData.fa;
+    pr = currentData.pr;
+  }else if(currentType === "guessWord"){
+    fullSentence = currentData.q.replace("معنی کلمهٔ «","").replace("» چیست؟","") + " → " + currentData.fa;
+    fa = currentData.fa;
+    pr = currentData.pr;
+  }
+
+  flashEn.innerText = fullSentence;
+  flashFa.innerText = fa;
+  flashPr.innerText = pr;
+  flashScore.innerText = `نمره: ${score}`;
+
+  flashcard.classList.add("show");
+}
+
+// ---------- سؤال بعدی ----------
+function nextQuestion(){
+  popup.style.display = "none";
+  showFlashcard(); // بعد از بررسی، فلش‌کارت
+  // وقتی کاربر روی «باشه» زد، فلش‌کارت بسته می‌شود
+  // و بعد از آن می‌رویم سؤال بعد
+  flashClose.onclick = ()=>{
+    flashcard.classList.remove("show");
+    step++;
+    getNextQuestion();
+  };
+}
+
+// ---------- نوار پیشرفت ----------
+function updateProgress(){
+  const total = totalQuestions();
+  const current = step + 1;
+  progressBar.style.width = ((current-1)/total)*100 + "%";
+}
+
+// ---------- پایان ----------
+function finish(){
+  document.querySelector(".container").innerHTML = `
+    <h2>پایان آزمون</h2>
+    <p style="text-align:center;margin-top:10px;">نمره نهایی: <span style="color:#91c300;font-weight:bold;">${score}</span></p>
+  `;
+}
+
+// شروع
+getNextQuestion();
 </script>
 
 </body>
